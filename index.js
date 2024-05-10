@@ -1,19 +1,28 @@
-function LRUCache(capacity) {
-  this.capacity = capacity;
-  this.cache = new Map();
-}
-LRUCache.prototype.get = function (key) {
-  if (!this.cache.has(key)) return -1;
-  const value = this.cache.get(key);
-  this.cache.delete(key);
-  this.cache.set(key, value);
-  return value;
-};
-LRUCache.prototype.put = function (key, value) {
-  if (this.cache.has(key)) this.cache.delete(key);
-  if (this.cache.size === this.capacity) {
-    const firstKey = this.cache.keys().next().value;
-    this.cache.delete(firstKey);
+function reorderList(head) {
+  if (!head || !head.next) return;
+  let slow = head;
+  let fast = head;
+  while (fast.next && fast.next.next) {
+    slow = slow.next;
+    fast = fast.next.next;
   }
-  this.cache.set(key, value);
-};
+  let prev = null;
+  let curr = slow.next;
+  slow.next = null;
+  while (curr) {
+    const next = curr.next;
+    curr.next = prev;
+    prev = curr;
+    curr = next;
+  }
+  let first = head;
+  let second = prev;
+  while (second.next) {
+    const next = first.next;
+    first.next = second;
+    first = next;
+    const next2 = second.next;
+    second.next = first;
+    second = next2;
+  }
+}

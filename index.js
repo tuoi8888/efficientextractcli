@@ -1,6 +1,2 @@
-const fibonacciRecursive = (n) => {
-  if (n <= 1) {
-    return n;
-  }
-  return fibonacciRecursive(n - 1) + fibonacciRecursive(n - 2);
-};
+const countOccurrences = (arr, value) =>
+  arr.reduce((a, v) => (v === value ? a + 1 : a), 0);

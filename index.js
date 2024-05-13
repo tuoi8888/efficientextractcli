@@ -1,2 +1,1 @@
-const countOccurrences = (arr, value) =>
-  arr.reduce((a, v) => (v === value ? a + 1 : a), 0);
+const minN = (arr, n = 1) => [...arr].sort((a, b) => a - b).slice(0, n);

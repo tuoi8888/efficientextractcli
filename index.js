@@ -1,16 +1,15 @@
-function numDecodings(s) {
-  const dp = new Array(s.length + 1).fill(0);
-  dp[0] = 1;
-  dp[1] = s[0] === "0" ? 0 : 1;
-  for (let i = 2; i <= s.length; i++) {
-    const oneDigit = parseInt(s.substring(i - 1, i));
-    const twoDigits = parseInt(s.substring(i - 2, i));
-    if (oneDigit >= 1) {
-      dp[i] += dp[i - 1];
+function isValidBST(root) {
+  const stack = [];
+  let inorder = -Infinity;
+  while (stack.length || root) {
+    while (root) {
+      stack.push(root);
+      root = root.left;
     }
-    if (twoDigits >= 10 && twoDigits <= 26) {
-      dp[i] += dp[i - 2];
-    }
+    root = stack.pop();
+    if (root.val <= inorder) return false;
+    inorder = root.val;
+    root = root.right;
   }
-  return dp[s.length];
+  return true;
 }
